@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import IndexScreen from "./src/screens/IndexScreen";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { Feather } from 'react-native-vector-icons'
+import store from './src/store/store'
+import { Provider } from "react-redux";
 
-export default function App() {
+const Tab = createMaterialBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen 
+          name = "Index" 
+          component={IndexScreen}
+          options={{
+            tabBarIcon: () => (
+              <Feather name="list" size={24} />
+            ),
+            tabBarLabel:'',
+            tabBarColor:'red'
+          }} 
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default () => {
+  return (
+    <Provider store={store} >
+      <App />
+    </Provider>
+  )
+}
