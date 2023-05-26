@@ -1,14 +1,64 @@
 import React from "react";
-import { View,Text,Button } from "react-native";
+import { View,Text,TouchableOpacity,FlatList,StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { Card } from "@rneui/themed";
+import { Feather } from "@expo/vector-icons";
+import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 
-const IndexScreen = ( {navigation} ) => {
+const IndexScreen = ( {navigation, expenses } ) => {
   return (
-    <View style={{marginTop:100}} >
-      <Text>
-        <Button title="navigate to goofy create screen" onPress={()  => navigation.navigate("Create")}/>
-      </Text>
+    <View style= {styles.view} >
+      <FlatList
+        data={expenses}
+        renderItem={({ item }) => (
+          <Card containerStyle={{borderRadius:25}} >
+            <Card.Title style={{fontSize:20}} >{item.title}</Card.Title>
+            <CardDivider />
+            <Text style ={styles.text}>{item.expense} were spent on {item.expenseType}</Text>
+          </Card>
+        )}
+        key={({item}) => item.id}
+      />
+      <TouchableOpacity onPress={() => navigation.navigate("Create")} style={styles.buttonStyle}>
+        <Feather size={32} name="plus" />
+      </TouchableOpacity>
     </View>
   )
 }
 
-export default IndexScreen;
+const styles = StyleSheet.create({
+  view: {
+    flex:1
+  },
+  buttonStyle: {
+    width: 60,
+    height: 60,
+    marginRight: 20,
+    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    padding: 10,
+    borderRadius: 50,
+    backgroundColor: "#EDEADE",
+    borderColor: "black",
+    borderWidth: 2,
+    shadowColor: "rgba(0, 0, 0, 1)",
+    shadowOpacity: 0.8,
+    elevation: 6,
+    shadowRadius: 15,
+    shadowOffset: { width: 1, height: 13 },
+  },
+  text: {
+    fontSize:28,
+    alignSelf:"center"
+  }
+})
+
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expensesReducer
+  }
+}
+
+export default connect(mapStateToProps)(IndexScreen)

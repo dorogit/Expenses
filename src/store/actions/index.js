@@ -1,7 +1,7 @@
 export const createExpense = (expenseData) => {
   return (dispatch) => {
     dispatch({
-      type: 'CREATE_EXPENSE',
+      type: 'ADD_EXPENSE',
       payload: expenseData
     });
   };

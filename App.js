@@ -32,7 +32,7 @@ const MainStack = () => {
         component={TravelBuddyScreen}
         options={{
           tabBarIcon: () => (
-            <Feather name="list" size={24} />
+            <Feather name="smile" size={24} />
           ),
           tabBarLabel:'',
           tabBarColor:'blue'
@@ -43,7 +43,7 @@ const MainStack = () => {
         component={SummaryScreen}
         options={{
           tabBarIcon: () => (
-            <Feather name="list" size={24} />
+            <Feather name="dollar-sign" size={24} />
           ),
           tabBarLabel:'',
           tabBarColor:'green'
@@ -57,7 +57,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown:false}} name="MainStack" component={MainStack} />
+        <Stack.Screen name="MainStack" component={MainStack} />
         <Stack.Screen name = "Create" component={CreateScreen} />
       </Stack.Navigator>
     </NavigationContainer>

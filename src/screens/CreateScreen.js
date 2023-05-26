@@ -3,11 +3,10 @@ import { View, StyleSheet } from "react-native";
 import { Text, Input, Button, Image } from "@rneui/themed";
 import Spacer from "../components/Spacer";
 import DropDownPicker from "react-native-dropdown-picker";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { createExpense } from "../store/actions";
 
-
-const CreateScreen = ({ navigation, expenses }) => {
+const CreateScreen = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -15,8 +14,10 @@ const CreateScreen = ({ navigation, expenses }) => {
     });
   });
 
+  const dispatch = useDispatch()
+
   const [open, setOpen] = useState(false);
-  const [ExpenseTitle, setExpenseTitle] = useState("title");
+  const [ExpenseTitle, setExpenseTitle] = useState("Title");
   const [Expense, setExpense] = useState("0");
   const [ExpenseType, setExpenseType] = useState("");
   const [Items, setItems] = useState([
@@ -37,7 +38,7 @@ const CreateScreen = ({ navigation, expenses }) => {
       expenseTitleInputRef.current.shake();
       hasError = true;
     }
-    if (Expense.trim() === "") {
+    if (ExpenseTitle.trim() === "") {
       expenseInputRef.current.shake();
       hasError = true;
     }
@@ -49,7 +50,9 @@ const CreateScreen = ({ navigation, expenses }) => {
     }
 
     if (!hasError) {
-      console.log("Create Expense:", ExpenseTitle, Expense, ExpenseType);
+      const expenseValue = parseFloat(Expense)
+      dispatch(createExpense({title:ExpenseTitle, expense: expenseValue, expenseType: ExpenseType, id: Math.floor(Math.random() * 100000)}))
+      navigation.navigate("MainStack")
     }
   };
 
@@ -80,7 +83,7 @@ const CreateScreen = ({ navigation, expenses }) => {
           value={Expense}
           onChangeText={(text) => setExpense(text)}
           label="Set your Expense!"
-          style={Expense.trim() === "" ? styles.inputError : styles.inputTitleStyle}
+          style={ExpenseTitle.trim() === "" ? styles.inputError : styles.inputTitleStyle}
         />
       </Spacer>
       <Spacer>
@@ -151,10 +154,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return {
-    expenses: state.expenseReducer
-  };
-};
 
-export default connect(mapStateToProps, { createExpense })(CreateScreen);
+export default connect(null, { createExpense })(CreateScreen);
