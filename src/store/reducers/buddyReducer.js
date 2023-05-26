@@ -1,4 +1,4 @@
-const INITIAL_STATE = [{name:"Ishaan", startingAmount:5000}]
+const INITIAL_STATE = []
 
 const buddyReducer = (state = INITIAL_STATE, action) => {
 

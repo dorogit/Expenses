@@ -6,7 +6,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { connect, useDispatch } from "react-redux";
 import { createExpense } from "../store/actions";
 
-const CreateScreen = ({ navigation }) => {
+const CreateScreen = ({ navigation, expenses }) => {
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -53,7 +53,7 @@ const CreateScreen = ({ navigation }) => {
 
     if (!hasError) {
       const expenseValue = parseFloat(Expense)
-      dispatch(createExpense({title:ExpenseTitle, expense: expenseValue, expenseType: ExpenseType, id: Math.floor(Math.random() * 10000)}))
+      dispatch(createExpense(expenses, {title:ExpenseTitle, expense: expenseValue, expenseType: ExpenseType, id: Math.floor(Math.random() * 10000)}))
       navigation.navigate("MainStack")
     }
   };
@@ -156,5 +156,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expensesReducer
+  }
+}
 
-export default connect(null, { createExpense })(CreateScreen);
+export default connect(mapStateToProps, { createExpense })(CreateScreen);

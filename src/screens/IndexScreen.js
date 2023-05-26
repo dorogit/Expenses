@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View,Text,TouchableOpacity,FlatList,StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { Card } from "@rneui/themed";
 import { Feather } from "@expo/vector-icons";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
+import { fetchExpenses } from "../store/actions";
+import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const IndexScreen = ( {navigation, expenses } ) => {
+const IndexScreen = ( { navigation, expenses } ) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchExpenses())
+    console.log("index logged",expenses)
+  }, [navigation])
   return (
     <View style= {styles.view} >
       <FlatList
@@ -61,4 +69,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(IndexScreen)
+export default connect(mapStateToProps, {fetchExpenses})(IndexScreen)
