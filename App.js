@@ -2,6 +2,7 @@ import React from "react";
 import IndexScreen from "./src/screens/IndexScreen";
 import CreateScreen from "./src/screens/CreateScreen";
 import SummaryScreen from "./src/screens/SummaryScreen";
+import CreateBuddyScreen from "./src/screens/CreateBuddyScreen";
 import TravelBuddyScreen from "./src/screens/TravelBuddyScreen";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -57,8 +58,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="MainStack" component={MainStack} />
+        <Stack.Screen options={{headerTitle:""}} name="MainStack" component={MainStack} />
         <Stack.Screen name = "Create" component={CreateScreen} />
+        <Stack.Screen name = "CreateBuddy" component={CreateBuddyScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

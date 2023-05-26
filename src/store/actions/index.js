@@ -6,3 +6,12 @@ export const createExpense = (expenseData) => {
     });
   };
 };
+
+export const createBuddy = (expenseData) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'ADD_BUDDY',
+      payload: expenseData
+    });
+  };
+};

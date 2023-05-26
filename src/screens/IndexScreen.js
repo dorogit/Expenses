@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 13 },
   },
   text: {
-    fontSize:28,
+    fontSize:24,
     alignSelf:"center"
   }
 })

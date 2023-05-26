@@ -20,13 +20,13 @@ const CreateScreen = ({ navigation }) => {
   const [ExpenseTitle, setExpenseTitle] = useState("Title");
   const [Expense, setExpense] = useState("0");
   const [ExpenseType, setExpenseType] = useState("");
+  const [ExpenseHasError, setExpenseHasError] = useState(false);
   const [Items, setItems] = useState([
     { label: "Travel", value: "Travel" },
     { label: "Food", value: "Food" },
     { label: "Amusement", value: "Amusement" },
     { label: "Other", value: "Other" },
   ]);
-  const [ExpenseTypeHasError, setExpenseTypeHasError] = useState(false);
 
   const expenseTitleInputRef = useRef(null);
   const expenseInputRef = useRef(null);
@@ -35,23 +35,25 @@ const CreateScreen = ({ navigation }) => {
     let hasError = false;
 
     if (ExpenseTitle.trim() === "") {
+      setExpenseHasError(true);
       expenseTitleInputRef.current.shake();
       hasError = true;
     }
-    if (ExpenseTitle.trim() === "") {
+    if (Expense.trim() === "") {
+      setExpenseHasError(true);
       expenseInputRef.current.shake();
       hasError = true;
     }
     if (ExpenseType === "") {
-      setExpenseTypeHasError(true);
+      setExpenseHasError(true);
       hasError = true;
     } else {
-      setExpenseTypeHasError(false);
+      setExpenseHasError(false);
     }
 
     if (!hasError) {
       const expenseValue = parseFloat(Expense)
-      dispatch(createExpense({title:ExpenseTitle, expense: expenseValue, expenseType: ExpenseType, id: Math.floor(Math.random() * 100000)}))
+      dispatch(createExpense({title:ExpenseTitle, expense: expenseValue, expenseType: ExpenseType, id: Math.floor(Math.random() * 10000)}))
       navigation.navigate("MainStack")
     }
   };
@@ -95,7 +97,7 @@ const CreateScreen = ({ navigation }) => {
           value={ExpenseType}
           setValue={(value) => {
             setExpenseType(value);
-            setExpenseTypeHasError(false);
+            setExpenseHasError(false);
           }}
           items={Items}
           setItems={setItems}
@@ -103,13 +105,13 @@ const CreateScreen = ({ navigation }) => {
           searchable={false}
           onClose={() => {
             if (ExpenseType === "") {
-              setExpenseTypeHasError(true);
+              setExpenseHasError(true);
             }
           }}
-          style={ExpenseTypeHasError ? styles.dropdownError : styles.inputExpenseStyle}
+          style={ExpenseHasError ? styles.dropdownError : styles.inputExpenseStyle}
         />
       </Spacer>
-      {ExpenseTypeHasError && (
+      {ExpenseHasError && (
         <Text style={styles.errorText}>Please fill all details!</Text>
       )}
       <Spacer>
