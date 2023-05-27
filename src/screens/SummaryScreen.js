@@ -4,7 +4,6 @@ import { connect, useDispatch } from "react-redux";
 import { fetchExpenses, fetchBuddies } from "../store/actions";
 import { Card } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
-import { useFocusEffect } from "@react-navigation/native";
 
 const SummaryScreen = ({ expenses, buddies }) => {
   console.log("buddies logged by summary are:", buddies)
@@ -52,4 +51,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(SummaryScreen);
+export default connect(mapStateToProps, {fetchExpenses, fetchBuddies} )(SummaryScreen);

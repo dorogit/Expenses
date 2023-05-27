@@ -7,7 +7,7 @@ import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 import { fetchBuddies } from "../store/actions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const TravelBuddyScreen = ( {navigation, buddies } ) => {
+const TravelBuddyScreen = ( { navigation, buddies } ) => {
   console.log("buddies logged by index:",buddies)
   const dispatch = useDispatch()
   useEffect(() => {(
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(TravelBuddyScreen)
+export default connect(mapStateToProps, {fetchBuddies} )(TravelBuddyScreen)

@@ -1,5 +1,4 @@
 const INITIAL_STATE = []
-
 const expenseReducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
