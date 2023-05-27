@@ -5,7 +5,7 @@ import Spacer from "../components/Spacer";
 import { connect, useDispatch } from "react-redux";
 import { createBuddy } from "../store/actions";
 
-const BuddyScreen = ({ navigation }) => {
+const BuddyScreen = ({ navigation, buddies }) => {
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -37,7 +37,7 @@ const BuddyScreen = ({ navigation }) => {
 
     if (!hasError) {
       const amountValue = parseFloat(Amount)
-      dispatch(createBuddy({name:BuddyName, startingAmount: amountValue}))
+      dispatch(createBuddy(buddies, {name:BuddyName, startingAmount: amountValue}))
       navigation.navigate("MainStack")
     }
   };
@@ -114,5 +114,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = (state) => {
+  return {
+    buddies: state.buddyReducer
+  }
+}
 
-export default connect(null, { createBuddy })(BuddyScreen);
+export default connect(mapStateToProps, { createBuddy })(BuddyScreen);

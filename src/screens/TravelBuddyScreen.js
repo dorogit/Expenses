@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View,Text,TouchableOpacity,FlatList,StyleSheet } from "react-native";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Card } from "@rneui/themed";
 import { Feather } from "@expo/vector-icons";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
+import { fetchBuddies } from "../store/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TravelBuddyScreen = ( {navigation, buddies } ) => {
+  console.log("buddies logged by index:",buddies)
+  const dispatch = useDispatch()
+  useEffect(() => {(
+    dispatch(fetchBuddies()))
+  }, [navigation])
+
   return (
     <View style= {styles.view} >
       <FlatList

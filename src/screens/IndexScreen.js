@@ -12,7 +12,6 @@ const IndexScreen = ( { navigation, expenses } ) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchExpenses())
-    console.log("index logged",expenses)
   }, [navigation])
   return (
     <View style= {styles.view} >
