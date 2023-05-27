@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { connect, useDispatch } from "react-redux";
 import { fetchExpenses, fetchBuddies } from "../store/actions";
+import { Card } from "@rneui/themed";
+import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 
 const SummaryScreen = ({ expenses, buddies }) => {
   console.log("buddies logged by summary are:", buddies)
@@ -25,21 +27,22 @@ const SummaryScreen = ({ expenses, buddies }) => {
   const splitAmount = totalExpense / buddies.length;
 
   const renderItem = ({ item }) => {
-    const { name, amount } = item;
-    const payment = amount > splitAmount ? amount - splitAmount : splitAmount - amount;
-    const paymentText = amount > splitAmount ? `Receives: $${payment}` : `Pays: $${payment}`;
+    const { name, startingAmount } = item;
+    const payment = startingAmount > splitAmount ? startingAmount - splitAmount : splitAmount - startingAmount;
+    const paymentText = startingAmount > splitAmount ? `Receives: $${payment}` : `Pays: $${payment}`;
 
     return (
-      <View>
-        <Text>{name}</Text>
-        <Text>{paymentText}</Text>
-      </View>
+      <Card containerStyle={{borderRadius:25}} >
+        <Card.Title style={{fontSize:20}} >{name}</Card.Title>
+        <CardDivider />
+        <Text style ={{fontSize:20, alignSelf:"center"}}>{paymentText}</Text>
+      </Card>
     );
   };
 
   return (
-    <View>
-      <Text>Total Expense: ${totalExpense}</Text>
+    <View style = {{flex:1}} >
+      <Text style ={{alignSelf:"center", fontSize:30, marginVertical:100}} >Total Expense: ${totalExpense}</Text>
       <FlatList data={buddies} renderItem={renderItem} key={Math.floor(Math.random() * 10000)} />
     </View>
   );
