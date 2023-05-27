@@ -1,54 +1,53 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const createExpense = (state, expenseData) => {
-
   return async (dispatch) => {
     try {
+      let updatedState;
       if (!state) {
-        console.log(state)
-        await AsyncStorage.setItem('expenses',JSON.stringify(expenseData))
-        console.log("set successfully!", expenseData)
+        updatedState = [expenseData];
       } else {
-        const updatedState = [...state, expenseData]
-        await AsyncStorage.setItem('expenses',JSON.stringify(updatedState))
-        console.log("set successfully!", updatedState)
+        updatedState = [...state, expenseData];
       }
+      await AsyncStorage.setItem('expenses', JSON.stringify(updatedState));
+      console.log("set successfully!", updatedState);
+
       dispatch({
-        type:"ADD_EXPENSE",
-        payload:expenseData
-      })
+        type: "ADD_EXPENSE",
+        payload: expenseData
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch({
-        type:"ADD_EXPENSE",
-        payload:expenseData
-      })
+        type: "ADD_EXPENSE",
+        payload: expenseData
+      });
     }
   };
 };
 
 export const createBuddy = (state, buddyData) => {
-
   return async (dispatch) => {
     try {
+      let updatedState;
       if (!state) {
-        await AsyncStorage.setItem('buddies',JSON.stringify([buddyData]))
-        console.log("set successfully!", buddyData)
+        updatedState = [buddyData];
       } else {
-        const updatedState = [...state, buddyData]
-        await AsyncStorage.setItem('buddies',JSON.stringify(updatedState))
-        console.log("set successfully!", updatedState)
+        updatedState = [...state, buddyData];
       }
+      await AsyncStorage.setItem('buddies', JSON.stringify(updatedState));
+      console.log("set successfully!", updatedState);
+
       dispatch({
-        type:"ADD_BUDDY",
-        payload:buddyData
-      })
+        type: "ADD_BUDDY",
+        payload: buddyData
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch({
-        type:"ADD_BUDDY",
-        payload:buddyData
-      })
+        type: "ADD_BUDDY",
+        payload: buddyData
+      });
     }
   };
 };

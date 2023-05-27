@@ -4,6 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { fetchExpenses, fetchBuddies } from "../store/actions";
 import { Card } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SummaryScreen = ({ expenses, buddies }) => {
   console.log("buddies logged by summary are:", buddies)
@@ -13,16 +14,12 @@ const SummaryScreen = ({ expenses, buddies }) => {
   useEffect(() => {
     dispatch(fetchExpenses());
     dispatch(fetchBuddies());
-  }, []);
-
-  useEffect(() => {
-    // Calculate the total expense
     let sum = 0;
     expenses.forEach((expense) => {
       sum += expense.expense;
     });
     setTotalExpense(sum);
-  }, [expenses]);
+  }, []);
 
   const splitAmount = totalExpense / buddies.length;
 
