@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const IndexScreen = ( { navigation, expenses } ) => {
+  AsyncStorage.clear()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchExpenses())

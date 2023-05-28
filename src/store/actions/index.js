@@ -3,12 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const createExpense = (state, expenseData) => {
   return async (dispatch) => {
     try {
-      let updatedState;
-      if (!state) {
-        updatedState = [expenseData];
-      } else {
-        updatedState = [...state, expenseData];
-      }
+      let updatedState = [...state, expenseData]
       await AsyncStorage.setItem('expenses', JSON.stringify(updatedState));
       console.log("set successfully!", updatedState);
 
@@ -30,11 +25,7 @@ export const createBuddy = (state, buddyData) => {
   return async (dispatch) => {
     try {
       let updatedState;
-      if (!state) {
-        updatedState = [buddyData];
-      } else {
-        updatedState = [...state, buddyData];
-      }
+      updatedState = [...state, buddyData]
       await AsyncStorage.setItem('buddies', JSON.stringify(updatedState));
       console.log("set successfully!", updatedState);
 

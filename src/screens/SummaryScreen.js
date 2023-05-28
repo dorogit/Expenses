@@ -5,7 +5,7 @@ import { fetchExpenses, fetchBuddies } from "../store/actions";
 import { Card } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 
-const SummaryScreen = ({ expenses, buddies }) => {
+const SummaryScreen = ({ navigation,expenses, buddies }) => {
   console.log("buddies logged by summary are:", buddies)
   const dispatch = useDispatch();
   const [totalExpense, setTotalExpense] = useState(0);
@@ -18,9 +18,9 @@ const SummaryScreen = ({ expenses, buddies }) => {
       sum += expense.expense;
     });
     setTotalExpense(sum);
-  }, []);
+  }, [navigation]);
 
-  const splitAmount = totalExpense / buddies.length;
+  const splitAmount = Math.floor(totalExpense / buddies.length);
 
   const renderItem = ({ item }) => {
     const { name, startingAmount } = item;
